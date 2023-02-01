@@ -8,9 +8,10 @@
 ## Por mejorar
 
 - Organización del código
+- Eliminar elementos hardcodeados
 
 ## TODO
 
-- Añadir colores dark/light para las tarjetas de los mensajes
+- Añadir colores a temas dark/light para las tarjetas de los mensajes
 - Implementación de mostrar/esconder fecha
 - Implementación formato de fecha en funcion del tiempo transcurrido
