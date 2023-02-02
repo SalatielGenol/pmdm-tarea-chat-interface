@@ -3,16 +3,12 @@ package com.example.chatinterface.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.Colors
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.ColorUtils
 import com.example.chatinterface.data.Message
-import java.text.Format
 import java.util.*
 
 @Composable
@@ -22,7 +18,10 @@ internal fun MessageRow(message: Message) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = if (message.isFromSender) Arrangement.End else Arrangement.Start
     ) {
-        if (message.isFromSender) SenderMessageRow(message.messageText, message.date) else ReceiverMessageRow(message.messageText, message.date)
+        if (message.isFromSender) SenderMessageRow(
+            message.messageText,
+            message.date
+        ) else ReceiverMessageRow(message.messageText, message.date)
     }
 }
 

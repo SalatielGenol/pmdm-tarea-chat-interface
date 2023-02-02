@@ -11,7 +11,9 @@ import com.example.chatinterface.components.ChatStructure
 import com.example.chatinterface.components.LazyChat
 import com.example.chatinterface.data.ChatData
 import com.example.chatinterface.ui.theme.ChatInterfaceTheme
+import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +40,18 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+
+        val formatter = SimpleDateFormat.getTimeInstance()
         anakin.getAllMessages().forEach(action = {
-            println(it.messageText)
-            println(it.date)
+            println(it.date.time)
+            println()
         })
+
+        fun getTimeFromNow(date: Date): String {
+            //Calendar.getInstance().timeInMillis
+            val now = TimeUnit.MILLISECONDS.toMinutes(Calendar.getInstance().timeInMillis)
+            val formatter = SimpleDateFormat.getTimeInstance()
+            return now.toString()
+        }
     }
 }
