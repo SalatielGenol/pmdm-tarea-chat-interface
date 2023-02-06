@@ -27,6 +27,7 @@ internal fun MessageRow(message: Message) {
 
 @Composable
 fun SenderMessageRow(messageText: String, messageDate: Date) {
+    //val messageText by remember { mutableStateOf(messageText) }
     Card(
         modifier = Modifier
             .fillMaxWidth(0.8f)
@@ -57,7 +58,7 @@ fun SenderMessageRow(messageText: String, messageDate: Date) {
                 horizontalArrangement = Arrangement.End
             ) {
                 Text(
-                    text = messageDate.toString(),
+                    text = getTimeElapsedFormat(messageDate),
                     modifier = Modifier
                         .padding(all = 3.dp)
                 )
@@ -98,7 +99,7 @@ fun ReceiverMessageRow(messageText: String, messageDate: Date) {
                 horizontalArrangement = Arrangement.End
             ) {
                 Text(
-                    text = messageDate.toString(),
+                    text = getTimeElapsedFormat(messageDate),
                     modifier = Modifier
                         .padding(all = 3.dp)
                 )

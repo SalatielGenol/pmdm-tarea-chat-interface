@@ -1,5 +1,7 @@
 package com.example.chatinterface.data
 
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import java.util.*
 
 internal data class Message(
@@ -11,7 +13,7 @@ internal data class Message(
 internal class ChatData(
     val userName: String
 ) {
-    private val chatMessages: MutableList<Message> = mutableListOf()
+    private val chatMessages = mutableStateListOf<Message>()
 
     fun addMessage(
         date: Date = Calendar.getInstance().time,
@@ -27,7 +29,7 @@ internal class ChatData(
         )
     }
 
-    fun getAllMessages(): MutableList<Message> {
+    fun getAllMessages(): SnapshotStateList<Message> {
         return chatMessages
     }
 }
