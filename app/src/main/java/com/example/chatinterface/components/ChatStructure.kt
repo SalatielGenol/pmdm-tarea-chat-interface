@@ -1,19 +1,27 @@
 package com.example.chatinterface.components
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.chatinterface.data.ChatData
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 
 @Composable
-internal fun ChatStructure(chatData: ChatData){
+internal fun ChatStructure(chatData: ChatData) {
     val chatDataState by remember { mutableStateOf(chatData) }
     var inputText by rememberSaveable { mutableStateOf("") }
     val listState = rememberLazyListState()
@@ -22,19 +30,43 @@ internal fun ChatStructure(chatData: ChatData){
             Icon(Icons.Filled.Face, contentDescription = "User icon")
             Text(text = chatData.userName, modifier = Modifier.padding(horizontal = 10.dp))
         }
-    )},
-    bottomBar = { BottomAppBar {
-        OutlinedTextField(value = inputText, onValueChange = {inputText = it}, modifier = Modifier.weight(0.7f), singleLine = true)
-        Button(onClick = {
-            chatDataState.addMessage(messageText = inputText, isFromSender = true)
-        }, modifier = Modifier.weight(0.2f)) {
-            Text(text = "Enviar")
+        )
+    },
+        bottomBar = {
+            BottomAppBar {
+                TextField(
+                    value = inputText,
+                    onValueChange = { inputText = it },
+                    singleLine = true,
+                )
+                IconButton(onClick = {
+                    chatDataState.addMessage(messageText = inputText, isFromSender = true)
+                    listState.scrollToItem(index = chatDataState.getAllMessages().lastIndex)
+                }) {
+                    Icon(Icons.Filled.Send, contentDescription = "Send button")
+                }
+            }
         }
-    }}
     ) {
-        LaunchedEffect(key1 = chatDataState.getAllMessages()){
-            listState.scrollToItem(index = chatDataState.getAllMessages().lastIndex)
+        LaunchedEffect(key1 = chatDataState.getAllMessages()) {
+            coroutineScope { launch {listState.scrollToItem(index = chatDataState.getAllMessages().lastIndex) }}
         }
-        LazyChat(paddingValues = it, chatMessages = chatDataState.getAllMessages(), state = listState)
+        LazyColumn(
+            state = listState,
+            modifier = Modifier.padding(paddingValues = it),
+        ) {
+            items(items = chatDataState.getAllMessages()) { message ->
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = if (message.isFromSender) {
+                        Arrangement.End
+                    } else {
+                        Arrangement.Start
+                    }
+                ) {
+                    MessageCard(message = message)
+                }
+            }
+        }
     }
 }

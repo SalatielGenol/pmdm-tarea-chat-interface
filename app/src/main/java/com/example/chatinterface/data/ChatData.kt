@@ -7,7 +7,8 @@ import java.util.*
 internal data class Message(
     val date: Date,
     val messageText: String,
-    val isFromSender: Boolean
+    val isFromSender: Boolean,
+    var isLastMessage: Boolean
 )
 
 internal class ChatData(
@@ -18,18 +19,31 @@ internal class ChatData(
     fun addMessage(
         date: Date = Calendar.getInstance().time,
         messageText: String,
-        isFromSender: Boolean = false
+        isFromSender: Boolean = false,
+        isLastMessage: Boolean = true
     ) {
+        if(chatMessages.isNotEmpty() && chatMessages.last().isFromSender == isFromSender){
+            chatMessages.last().isLastMessage = false
+        }
         chatMessages.add(
             Message(
                 date = date,
                 messageText = messageText,
-                isFromSender = isFromSender
+                isFromSender = isFromSender,
+                isLastMessage = isLastMessage
             )
         )
     }
 
     fun getAllMessages(): SnapshotStateList<Message> {
         return chatMessages
+    }
+
+    fun getMessageId(msg: Message): Int{
+        return chatMessages.indexOf(msg)
+    }
+
+    fun changeLastMessageState(){
+        //chatMessages.last().isLastMessage = !chatMessages.last().isLastMessage
     }
 }

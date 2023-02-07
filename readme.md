@@ -4,6 +4,8 @@
 
 - Estructura inicial
 - Distribución de clases y funciones
+- Implementación de mostrar/esconder fecha
+- Implementación formato de fecha en funcion del tiempo transcurrido
 
 ## Por mejorar
 
@@ -13,5 +15,3 @@
 ## TODO
 
 - Añadir colores a temas dark/light para las tarjetas de los mensajes
-- Implementación de mostrar/esconder fecha
-- Implementación formato de fecha en funcion del tiempo transcurrido

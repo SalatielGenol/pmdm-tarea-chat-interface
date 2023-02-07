@@ -18,9 +18,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        println(firstRun)
-
-
         if (!firstRun) {
             anakin.addMessage(messageText = "¿De verdad no quieres un gatito común?")
             anakin.addMessage(
@@ -50,10 +47,10 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        anakin.getAllMessages().forEach(action = {
+/*        anakin.getAllMessages().forEach(action = {
             println(it.messageText)
             println(it.date.time)
-        })
+        })*/
     }
 
 /*    override fun onDestroy() {
