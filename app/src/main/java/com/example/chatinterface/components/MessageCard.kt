@@ -61,7 +61,7 @@ internal fun MessageCard(message: Message) {
                 horizontalArrangement = Arrangement.End
             ) {
                 Text(
-                    text = if (isDateVisible) getTimeElapsedFormat(message.date) else "",
+                    text = if (isDateVisible) getTimeElapsedFormatted(message.date) else getTimeFormatted(message.date),
                     modifier = Modifier
                         .padding(all = 3.dp)
                         .clickable { isDateVisible = !isDateVisible }

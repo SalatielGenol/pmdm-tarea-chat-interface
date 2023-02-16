@@ -41,7 +41,7 @@ internal fun ChatStructure(chatData: ChatData) {
                 )
                 IconButton(onClick = {
                     chatDataState.addMessage(messageText = inputText, isFromSender = true)
-                    listState.scrollToItem(index = chatDataState.getAllMessages().lastIndex)
+                    //listState.scrollToItem(index = chatDataState.getAllMessages().lastIndex)
                 }) {
                     Icon(Icons.Filled.Send, contentDescription = "Send button")
                 }

@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-fun getTimeElapsedFormat(date: Date): String {
+fun getTimeElapsedFormatted(date: Date): String {
     val currentTime = Calendar.getInstance().time
     return when (getDifferenceTimeDefinedByUnit(currentTime, date, 's')) {
         in 0..59 -> getDifferenceTimeDefinedByUnit(currentTime, date, 's').toString() + " s"
@@ -12,6 +12,10 @@ fun getTimeElapsedFormat(date: Date): String {
         in 3600..86399 -> getDifferenceTimeDefinedByUnit(currentTime, date, 'h').toString() + " h"
         else -> SimpleDateFormat("d MMM", Locale.getDefault()).format(date)
     }
+}
+
+fun getTimeFormatted(date: Date): String{
+    return SimpleDateFormat("H:mm:ss d MMM yyyy", Locale.getDefault()).format(date)
 }
 
 private fun getDifferenceTimeDefinedByUnit(
