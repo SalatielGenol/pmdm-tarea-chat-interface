@@ -1,35 +1,40 @@
 package com.example.chatinterface.components
 
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-fun getTimeElapsedFormatted(date: Date): String {
-    val currentTime = Calendar.getInstance().time
+fun getTimeElapsedFormatted(date: LocalDateTime): String {
+    val currentTime = LocalDateTime.now()
+    val formatter = DateTimeFormatter.ofPattern("d MMM")
     return when (getDifferenceTimeDefinedByUnit(currentTime, date, 's')) {
         in 0..59 -> getDifferenceTimeDefinedByUnit(currentTime, date, 's').toString() + " s"
         in 60..3599 -> getDifferenceTimeDefinedByUnit(currentTime, date, 'm').toString() + " m"
         in 3600..86399 -> getDifferenceTimeDefinedByUnit(currentTime, date, 'h').toString() + " h"
-        else -> SimpleDateFormat("d MMM", Locale.getDefault()).format(date)
+        else -> date.format(formatter)
     }
 }
 
-fun getTimeFormatted(date: Date): String{
-    return SimpleDateFormat("H:mm:ss d MMM yyyy", Locale.getDefault()).format(date)
+fun getTimeFormatted(date: LocalDateTime): String{
+    val formatter = DateTimeFormatter.ofPattern("H:mm:ss d MMM yyyy")
+    return date.format(formatter)
 }
 
 private fun getDifferenceTimeDefinedByUnit(
-    initialTime: Date,
-    finalTime: Date,
+    initialTime: LocalDateTime,
+    finalTime: LocalDateTime,
     timeUnit: Char
 ): Long {
-    val initialTimeLong = initialTime.time
-    val finalTimeLong = finalTime.time
+    val initialTimeLong = initialTime.toEpochSecond(ZoneOffset.UTC)
+    val finalTimeLong = finalTime.toEpochSecond(ZoneOffset.UTC)
     return when (timeUnit) {
-        's' -> TimeUnit.MILLISECONDS.toSeconds(initialTimeLong - finalTimeLong)
-        'm' -> TimeUnit.MILLISECONDS.toMinutes(initialTimeLong - finalTimeLong)
-        'h' -> TimeUnit.MILLISECONDS.toHours(initialTimeLong - finalTimeLong)
-        'd' -> TimeUnit.MILLISECONDS.toDays(initialTimeLong - finalTimeLong)
-        else -> Calendar.getInstance().timeInMillis
+        's' -> initialTimeLong - finalTimeLong
+        'm' -> TimeUnit.SECONDS.toMinutes(initialTimeLong - finalTimeLong)
+        'h' -> TimeUnit.SECONDS.toHours(initialTimeLong - finalTimeLong)
+        'd' -> TimeUnit.SECONDS.toDays(initialTimeLong - finalTimeLong)
+        else -> LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
     }
 }

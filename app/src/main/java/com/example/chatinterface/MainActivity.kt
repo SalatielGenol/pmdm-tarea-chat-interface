@@ -47,16 +47,5 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-/*        anakin.getAllMessages().forEach(action = {
-            println(it.messageText)
-            println(it.date.time)
-        })*/
     }
-
-/*    override fun onDestroy() {
-        super.onDestroy()
-        if (isFinishing) {
-            firstRun = false
-        }
-    }*/
 }

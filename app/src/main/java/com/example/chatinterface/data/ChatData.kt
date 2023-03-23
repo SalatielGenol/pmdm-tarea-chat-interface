@@ -2,10 +2,11 @@ package com.example.chatinterface.data
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import java.time.LocalDateTime
 import java.util.*
 
 internal data class Message(
-    val date: Date,
+    val date: LocalDateTime,
     val messageText: String,
     val isFromSender: Boolean,
     var isLastMessage: Boolean
@@ -17,7 +18,7 @@ internal class ChatData(
     private val chatMessages = mutableStateListOf<Message>()
 
     fun addMessage(
-        date: Date = Calendar.getInstance().time,
+        date: LocalDateTime = LocalDateTime.now(),
         messageText: String,
         isFromSender: Boolean = false,
         isLastMessage: Boolean = true
