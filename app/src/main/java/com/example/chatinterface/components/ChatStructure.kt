@@ -16,7 +16,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.chatinterface.data.ChatData
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 
@@ -25,10 +24,12 @@ internal fun ChatStructure(chatData: ChatData) {
     val chatDataState by remember { mutableStateOf(chatData) }
     var inputText by rememberSaveable { mutableStateOf("") }
     val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+
     Scaffold(topBar = {
         TopAppBar(title = {
             Icon(Icons.Filled.Face, contentDescription = "User icon")
-            Text(text = chatData.userName, modifier = Modifier.padding(horizontal = 10.dp))
+            Text(text = chatDataState.userName, modifier = Modifier.padding(horizontal = 10.dp))
         }
         )
     },
@@ -41,7 +42,7 @@ internal fun ChatStructure(chatData: ChatData) {
                 )
                 IconButton(onClick = {
                     chatDataState.addMessage(messageText = inputText, isFromSender = true)
-                    //listState.scrollToItem(index = chatDataState.getAllMessages().lastIndex)
+                    coroutineScope.launch { listState.scrollToItem(index = chatDataState.getAllMessages().lastIndex) }
                 }) {
                     Icon(Icons.Filled.Send, contentDescription = "Send button")
                 }
@@ -49,7 +50,7 @@ internal fun ChatStructure(chatData: ChatData) {
         }
     ) {
         LaunchedEffect(key1 = chatDataState.getAllMessages()) {
-            coroutineScope { launch {listState.scrollToItem(index = chatDataState.getAllMessages().lastIndex) }}
+            coroutineScope.launch { listState.scrollToItem(index = chatDataState.getAllMessages().lastIndex) }
         }
         LazyColumn(
             state = listState,
