@@ -1,4 +1,4 @@
-package com.example.chatinterface.components
+package com.example.chatinterface.chat
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,8 +13,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.chatinterface.data.Message
 import com.example.chatinterface.ui.theme.customColors
+import com.example.chatinterface.utils.getTimeElapsedFormatted
+import com.example.chatinterface.utils.getTimeFormatted
 
 @Composable
 internal fun MessageCard(message: Message) {

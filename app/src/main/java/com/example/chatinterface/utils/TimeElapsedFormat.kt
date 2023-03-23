@@ -1,10 +1,8 @@
-package com.example.chatinterface.components
+package com.example.chatinterface.utils
 
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 fun getTimeElapsedFormatted(date: LocalDateTime): String {

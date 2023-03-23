@@ -1,18 +1,17 @@
-package com.example.chatinterface.data
+package com.example.chatinterface.chat
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import java.time.LocalDateTime
-import java.util.*
 
-internal data class Message(
+data class Message(
     val date: LocalDateTime,
     val messageText: String,
     val isFromSender: Boolean,
     var isLastMessage: Boolean
 )
 
-internal class ChatData(
+class ChatData(
     val userName: String
 ) {
     private val chatMessages = mutableStateListOf<Message>()

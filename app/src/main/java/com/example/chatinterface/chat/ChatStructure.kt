@@ -1,6 +1,5 @@
-package com.example.chatinterface.components
+package com.example.chatinterface.chat
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,16 +15,12 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.chatinterface.data.ChatData
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
 
 
 @Composable
-internal fun ChatStructure(chatData: ChatData) {
-    val chatDataState by remember { mutableStateOf(chatData) }
+internal fun ChatStructure() {
+    val chatDataState by remember { mutableStateOf() }
     var inputText by rememberSaveable { mutableStateOf("") }
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
